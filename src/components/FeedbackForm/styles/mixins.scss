@@ -84,3 +84,23 @@
 
   }
 }
+
+@mixin block {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $mainBGC;
+}
+
+@mixin container {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 50px;
+}
+
+@mixin form {
+  display: flex;
+  flex-direction: column;
+}

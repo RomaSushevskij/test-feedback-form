@@ -1,46 +1,69 @@
 @import "styles/variables";
+@import "styles/mixins";
 @import "src/common/styles/variables";
-
-.formWrapper {
-  display: flex;
-  justify-content: center;
-  align-content: center;
+body {
+  margin: 0;
+  padding: 0;
   font-family: $fontFamily;
+  .feedbackFormBlock {
+    @include block();
 
-  .field {
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
+    .feedbackFormContainer {
+      @include container();
 
-    &:last-child {
-      align-items: start;
-    }
+      .form {
+        @include form();
+        h1 {
+          text-align: center;
+          text-transform: uppercase;
+          letter-spacing: .2em;
+          color:$primary;
+        }
 
-    label {
-      width: 300px;
-      color: $textColor;
-      font-weight: bold;
-    }
-  }
-  .buttonBlock {
-    display: flex;
-    justify-content: center;
-    .primaryButton {
-      background-color: $primary;
-      color: #ffffff;
+        .field {
+          margin: 10px 0;
+          display: flex;
+          align-items: center;
 
-      &:hover {
-        background-color: #3a8ad0;
+          &:last-child {
+            align-items: start;
+          }
+
+          label {
+            width: 300px;
+            color: $textColor;
+            font-weight: bold;
+          }
+        }
+
+        .buttonBlock {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 50px;
+
+          .primaryButton {
+            background-color: $primary;
+            color: #ffffff;
+
+            &:hover {
+              background-color: #3a8ad0;
+            }
+
+            &:disabled {
+              cursor: not-allowed;
+              background-color: lightgrey;
+              border: 2px solid darkgrey;
+              color: darkgrey;
+            }
+          }
+        }
       }
-      &:disabled {
-        cursor: not-allowed;
-        background-color: lightgrey;
-        border: 2px solid darkgrey;
-        color: darkgrey;
+
+      .checkBoxBlock {
+        align-self: end;
       }
     }
-  }
-  .checkBoxBlock {
-    align-self: end;
   }
 }
+
