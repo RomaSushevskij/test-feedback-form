@@ -35,6 +35,7 @@ export const useInputPhoneMask = (setTelInput: (telInputValue: string) => void) 
 
   const onTelInput = (e: FormEvent<HTMLInputElement>) => {
     const input = e.currentTarget;
+
     const inputNumbersValue = getInputNumbersValue(input.value);
     let formattedInputValue = EMPTY_STRING;
     const { selectionStart } = input;
