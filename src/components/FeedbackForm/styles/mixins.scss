@@ -21,7 +21,6 @@
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   font-weight: bold;
-  resize: vertical;
 
   &::-webkit-input-placeholder {
     color: $inputPlaceholderColor;
@@ -54,6 +53,7 @@
 }
 
 @mixin errorNote {
+  min-width: 100px;
   background-color: #BE4B49;
   border-color: #9C3735;
   display: inline-block;

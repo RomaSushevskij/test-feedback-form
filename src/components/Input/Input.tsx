@@ -1,54 +1,71 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent} from 'react'
-import s from './InputTextSecondary.module.scss'
+import React, {
+  ChangeEvent,
+  DetailedHTMLProps,
+  InputHTMLAttributes,
+  KeyboardEvent,
+  memo,
+} from "react";
 
-type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+import style from "./Input.module.scss";
 
+type DefaultInputPropsType = DetailedHTMLProps<
+  InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
 
 type SuperInputTextPropsType = DefaultInputPropsType & {
-    onChangeText?: (value: string) => void
-    onEnter?: () => void
-    error?: string
-    spanClassName?: string
-    customStyle?: string
-}
-
-export const InputTextSecondary: React.FC<SuperInputTextPropsType> = (
-    {
-        type, // достаём и игнорируем чтоб нельзя было задать другой тип инпута
-        onChange, onChangeText,
-        onKeyPress, onEnter,
-        error,
-        className, spanClassName, name, title,
-        customStyle,
-
-        ...restProps
-    }
-) => {
-    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-        onChange // если есть пропс onChange
-        && onChange(e); // то передать ему е (поскольку onChange не обязателен)
-
-        onChangeText && onChangeText(e.currentTarget.value)
-    };
-    const onKeyPressCallback = (e: KeyboardEvent<HTMLInputElement>) => {
-        onKeyPress && onKeyPress(e);
-        onEnter && e.key === 'Enter' && onEnter()
-    };
-
-    const finalSpanClassName = `${s.error} ${spanClassName ? spanClassName : ''}`;
-    const finalInputClassName = `${error ? `${s.errorInput} ${s.superInput}` : s.superInput} ${className}`;
-
-    return (
-        <div className={customStyle ? `${customStyle} ${s.inputWrapper}` : s.inputWrapper}>
-            <input name={name}
-                   type={type}
-                   onChange={onChangeCallback}
-                   onKeyPress={onKeyPressCallback}
-                   className={finalInputClassName}
-                   {...restProps}
-            />
-            {error && <div className={finalSpanClassName}>{error}</div>}
-        </div>
-    )
+  onChangeText?: (value: string) => void;
+  onEnter?: () => void;
+  error?: string;
+  spanClassName?: string;
+  customStyle?: string;
 };
 
+export const Input = memo(
+  ({
+    type,
+    onChange,
+    onChangeText,
+    onKeyPress,
+    onEnter,
+    error,
+    className,
+    spanClassName,
+    name,
+    customStyle,
+
+    ...restProps
+  }: SuperInputTextPropsType) => {
+    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
+      if (onChange) onChange(e);
+      if (onChangeText) onChangeText(e.currentTarget.value);
+    };
+    const onKeyPressCallback = (e: KeyboardEvent<HTMLInputElement>) => {
+      if (onKeyPress) onKeyPress(e);
+      if (onEnter && e.key === "Enter") onEnter();
+    };
+
+    const finalSpanClassName = `${style.error} ${spanClassName || ""}`;
+    const finalInputClassName = `${
+      error ? `${style.errorInput} ${style.superInput}` : style.superInput
+    } ${className}`;
+
+    return (
+      <div
+        className={
+          customStyle ? `${customStyle} ${style.inputWrapper}` : style.inputWrapper
+        }
+      >
+        <input
+          name={name}
+          type={type}
+          onChange={onChangeCallback}
+          onKeyPress={onKeyPressCallback}
+          className={finalInputClassName}
+          {...restProps}
+        />
+        {error && <div className={finalSpanClassName}>{error}</div>}
+      </div>
+    );
+  },
+);

@@ -1,1 +1,1 @@
-export { FeedbackForm } from "./FeedbackForm";
+export { Textarea } from "./Textarea";

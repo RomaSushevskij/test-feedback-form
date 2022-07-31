@@ -1,0 +1,37 @@
+@import "styles/variables";
+@import "src/common/styles/variables";
+
+.formWrapper {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  font-family: $fontFamily;
+
+  .field {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+
+    &:last-child {
+      align-items: start;
+    }
+
+    label {
+      width: 300px;
+      color: $textColor;
+      font-weight: bold;
+    }
+  }
+  .buttonBlock {
+    display: flex;
+    justify-content: center;
+    .primaryButton {
+      background-color: $primary;
+      color: #ffffff;
+
+      &:hover {
+        background-color: #3a8ad0;
+      }
+    }
+  }
+}

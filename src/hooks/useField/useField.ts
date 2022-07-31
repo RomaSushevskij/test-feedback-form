@@ -1,19 +1,51 @@
 import { useCallback, useMemo, useState } from "react";
 
-import { EMPTY_STRING } from "./constants";
+import { useInputPhoneMask } from "../../components/FeedbackForm/utils";
+import { EMPTY_STRING } from "../../constants";
+import { useValidation } from "../useValidation/useValidation";
 
-export const useField = () => {
-  const [fieldValue, setFieldvalue] = useState<string>(EMPTY_STRING);
-  const handleSetFieldValue = (fieldValue: string) => setFieldvalue(fieldValue);
-  const handleFieldValueChange = useCallback(
-    (event: EventFieldValueType): void => {
-      handleSetInputValue(event.currentTarget.value);
-    },
-    [handleSetInputValue],
+import { EventFieldValueType } from "./types";
+
+export const useField = (validations: any, initialValue: string = EMPTY_STRING) => {
+  const [fieldValue, setFieldValue] = useState<string>(initialValue);
+  const [isTouched, setIsTouched] = useState<boolean>(false);
+
+  const valid = useValidation(fieldValue, validations);
+  const phoneMask = useInputPhoneMask(setFieldValue);
+
+  const handleSetFieldValue = useCallback(
+    (newFieldValue: string) => setFieldValue(newFieldValue),
+    [],
   );
+  const handleFieldValueChange = useCallback(
+    (event: EventFieldValueType, isUpperCase: boolean = false): void => {
+      const { value } = event.currentTarget;
+      const resultValue = isUpperCase ? value.toUpperCase() : value;
+
+      handleSetFieldValue(resultValue);
+    },
+    [handleSetFieldValue],
+  );
+  const handleFieldValueBlur = useCallback(() => {
+    setIsTouched(true);
+  }, [setIsTouched]);
 
   return useMemo(
-    () => ({ inputValue, handleFieldValueChange }),
-    [inputValue, handleFieldValueChange],
+    () => ({
+      fieldValue,
+      handleFieldValueChange,
+      isTouched,
+      handleFieldValueBlur,
+      ...valid,
+      ...phoneMask,
+    }),
+    [
+      fieldValue,
+      handleFieldValueChange,
+      isTouched,
+      handleFieldValueBlur,
+      valid,
+      validations,
+    ],
   );
 };
