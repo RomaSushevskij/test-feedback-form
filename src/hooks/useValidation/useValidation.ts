@@ -2,22 +2,22 @@ import { useEffect, useMemo, useState } from "react";
 
 import { EMPTY_STRING } from "../../constants";
 
-export const MIN_LENGTH = "minLength";
-export const MIN_LENGTH_VALUE = 10;
-export const MAX_LENGTH = "maxLength";
-export const MAX_LENGTH_VALUE = 300;
-export const IS_EMPTY = "isEmpty";
-export const VALID_EMAIL = "validEmail";
-export const VALID_FULL_NAME = "validFullName";
-
-const IS_EMPTY_ERROR_MESSAGE = "Field is required";
-const MIN_LENGTH_ERROR_MESSAGE = `The field length must be at least ${MIN_LENGTH_VALUE} characters`;
-const MAX_LENGTH_ERROR_MESSAGE = `The field length must have a maximum of ${MAX_LENGTH_VALUE} characters`;
-const INVALID_EMAIL_ADDRESS = "Invalid email address";
-const INVALID_FULL_NAME = "Invalid full name";
+import {
+  INVALID_EMAIL_ADDRESS,
+  INVALID_FULL_NAME,
+  IS_EMPTY,
+  IS_EMPTY_ERROR_MESSAGE,
+  MAX_LENGTH,
+  MAX_LENGTH_ERROR_MESSAGE,
+  MIN_LENGTH,
+  MIN_LENGTH_ERROR_MESSAGE,
+  VALID_EMAIL,
+  VALID_FULL_NAME,
+} from "./constatnts";
 
 export const useValidation = (fieldValue: string, validations: any) => {
   const [errors, setErrors] = useState<string>(EMPTY_STRING);
+  const [isValidInput, setIsValidInput] = useState<boolean>(false);
 
   useEffect(() => {
     const validationsValues = Object.keys(validations);
@@ -72,9 +72,19 @@ export const useValidation = (fieldValue: string, validations: any) => {
     });
   }, [fieldValue, validations]);
 
+  useEffect(() => {
+    if (errors) {
+      setIsValidInput(false);
+
+      return;
+    }
+    setIsValidInput(true);
+  }, [errors]);
+
   return useMemo(
     () => ({
       errors,
+      isValidInput,
     }),
     [errors, fieldValue, validations],
   );

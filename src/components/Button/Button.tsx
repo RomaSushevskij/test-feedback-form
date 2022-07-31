@@ -27,7 +27,6 @@ export const Button: React.FC<SuperButtonPropsType> = ({
       className={`${finalClassName} ${paperStyle.shadowPaper} ${paperStyle.relative}`}
       data-z="paper"
       data-hover-z="paper-1"
-      data-animated
       {...restProps}
     />
   );

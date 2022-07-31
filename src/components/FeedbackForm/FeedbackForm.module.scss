@@ -32,6 +32,15 @@
       &:hover {
         background-color: #3a8ad0;
       }
+      &:disabled {
+        cursor: not-allowed;
+        background-color: lightgrey;
+        border: 2px solid darkgrey;
+        color: darkgrey;
+      }
     }
+  }
+  .checkBoxBlock {
+    align-self: end;
   }
 }

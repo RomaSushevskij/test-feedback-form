@@ -1,0 +1,16 @@
+@import "src/common/styles/variables";
+
+.preloader {
+  border: 2px solid hsla(185, 100%, 62%, 0.2);
+  border-top-color: $primary;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

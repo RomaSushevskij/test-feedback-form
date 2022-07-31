@@ -1,0 +1,11 @@
+export const VALID_FIRST_NUMBERS = ["7", "8", "9"];
+export const ZERO_SYMBOLS = 0;
+export const ONE_SYMBOL = 1;
+export const FOUR_SYMBOLS = 4;
+export const SEVEN_SYMBOLS = 7;
+export const FIVE_SYMBOLS = 5;
+export const EIGHT_SYMBOLS = 8;
+export const NINE_SYMBOLS = 9;
+export const TEN_SYMBOLS = 10;
+export const ELEVEN_SYMBOLS = 11;
+export const SIXTEEN_SYMBOLS = 16;

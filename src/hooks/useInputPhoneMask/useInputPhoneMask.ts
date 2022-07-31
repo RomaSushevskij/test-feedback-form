@@ -2,17 +2,19 @@ import { ClipboardEvent, FormEvent, KeyboardEvent } from "react";
 
 import { EMPTY_STRING } from "../../constants";
 
-const VALID_FIRST_NUMBERS = ["7", "8", "9"];
-const ZERO_SYMBOLS = 0;
-const ONE_SYMBOL = 1;
-const FOUR_SYMBOLS = 4;
-const SEVEN_SYMBOLS = 7;
-const FIVE_SYMBOLS = 5;
-const EIGHT_SYMBOLS = 8;
-const NINE_SYMBOLS = 9;
-const TEN_SYMBOLS = 10;
-const ELEVEN_SYMBOLS = 11;
-const SIXTEEN_SYMBOLS = 16;
+import {
+  EIGHT_SYMBOLS,
+  ELEVEN_SYMBOLS,
+  FIVE_SYMBOLS,
+  FOUR_SYMBOLS,
+  NINE_SYMBOLS,
+  ONE_SYMBOL,
+  SEVEN_SYMBOLS,
+  SIXTEEN_SYMBOLS,
+  TEN_SYMBOLS,
+  VALID_FIRST_NUMBERS,
+  ZERO_SYMBOLS,
+} from "./constants";
 
 export const getInputNumbersValue = (value: string) => value.replace(/\D/g, "");
 

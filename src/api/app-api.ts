@@ -1,13 +1,23 @@
-import { FeedbackFormDataType } from "../store/reducers/feedbackForm/types";
+import { FeedbackFormDataType } from "../store";
 
-const SECONDS = 2000;
+import { SECONDS } from "./constants";
+import { ResponseFeedbackFormType } from "./types";
 
 export const appApi = {
-  sendFeedbackForm(formData: FeedbackFormDataType) {
-    return new Promise<{ message: string }>(res => {
-      console.log(formData);
+  sendFeedbackForm(formData: FeedbackFormDataType, requestStatus: boolean) {
+    return new Promise<ResponseFeedbackFormType>((res, rej) => {
       setTimeout(() => {
-        res({ message: "Form submitted successfully" });
+        const successResponse: ResponseFeedbackFormType = {
+          status: "success",
+          message: "Form submitted successfully",
+        };
+        const errorResponse: ResponseFeedbackFormType = {
+          status: "error",
+          message: "Some error occurred",
+        };
+
+        if (requestStatus) rej(errorResponse);
+        res(successResponse);
       }, SECONDS);
     });
   },

@@ -1,7 +1,7 @@
-import { memo } from "react";
+import { memo, useState, MouseEvent } from "react";
 
 import { EMPTY_STRING } from "../../constants";
-import { useField } from "../../hooks";
+import { useAppDispatch, useAppSelector, useField } from "../../hooks";
 import {
   IS_EMPTY,
   MAX_LENGTH,
@@ -10,16 +10,35 @@ import {
   MIN_LENGTH_VALUE,
   VALID_EMAIL,
   VALID_FULL_NAME,
-} from "../../hooks/useValidation/useValidation";
-import { FeedbackFormNames } from "../../store/reducers/feedbackForm/enums";
-import { sendFeedbackForm } from "../../store/reducers/feedbackForm/feedbackFormReducer";
+} from "../../hooks/useValidation/constatnts";
+import {
+  sendFeedbackForm,
+  FeedbackFormNames,
+  FeedbackFormDataType,
+  selectMessage,
+  selectResponseStatus,
+  selectSendingStatus,
+} from "../../store";
 import { Button } from "../Button";
+import { Checkbox } from "../Checkbox";
 import { Input } from "../Input";
+import { Preloader } from "../Preloader";
+import { SNACK_BAR_TYPES, SnackBar } from "../SnackBar";
 import { Textarea } from "../Textarea";
 
 import style from "./FeedbackForm.module.scss";
 
 export const FeedbackForm = memo(() => {
+  const dispatch = useAppDispatch();
+  const sendingFormStatus = useAppSelector(selectSendingStatus);
+  const responseMessage = useAppSelector(selectMessage);
+  const responseStatus = useAppSelector(selectResponseStatus);
+
+  const snackBarType =
+    responseStatus && responseStatus === "success"
+      ? SNACK_BAR_TYPES.SUCCESS
+      : SNACK_BAR_TYPES.ERROR;
+
   const fullName = useField({ [IS_EMPTY]: true, [VALID_FULL_NAME]: false });
   const message = useField({
     [IS_EMPTY]: true,
@@ -39,6 +58,39 @@ export const FeedbackForm = memo(() => {
   const errorOfEmailField = email.isTouched ? email.errors : EMPTY_STRING;
   const errorOfPhoneField = phone.isTouched ? phone.errors : EMPTY_STRING;
   const errorOfBirthDateField = birthDate.isTouched ? birthDate.errors : EMPTY_STRING;
+  const isButtonDisabled =
+    !fullName.isValidInput ||
+    !email.isValidInput ||
+    !phone.isValidInput ||
+    !birthDate.isValidInput ||
+    !message.isValidInput;
+
+  // testing the result of the request
+  const [requestStatus, setRequestStatus] = useState<boolean>(false);
+
+  const onButtonSubmitClick = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const formData: FeedbackFormDataType = {
+      fullName: fullName.fieldValue,
+      email: email.fieldValue,
+      phone: phone.fieldValue,
+      birthDate: phone.fieldValue,
+      message: message.fieldValue,
+    };
+
+    const resultAction = await dispatch(sendFeedbackForm({ formData, requestStatus }));
+
+    console.log(resultAction);
+    if (!sendFeedbackForm.rejected.match(resultAction)) {
+      if (resultAction.payload?.status === "success") {
+        fullName.resetInputValue();
+        email.resetInputValue();
+        phone.resetInputValue();
+        birthDate.resetInputValue();
+        message.resetInputValue();
+      }
+    }
+  };
 
   return (
     <div className={style.formWrapper}>
@@ -53,7 +105,7 @@ export const FeedbackForm = memo(() => {
             onBlur={fullName.handleFieldValueBlur}
             type="text"
             name={FeedbackFormNames.fullName}
-            placeholder="FIRSTNAME LASTNAME"
+            placeholder="FIRST LAST"
             id="FullName"
           />
         </div>
@@ -111,11 +163,27 @@ export const FeedbackForm = memo(() => {
           />
         </div>
         <div className={style.buttonBlock}>
-          <Button className={style.primaryButton} onClick={sendFeedbackForm}>
-            Отправить
-          </Button>
+          {sendingFormStatus === "loading" ? (
+            <Preloader />
+          ) : (
+            <Button
+              type="submit"
+              className={style.primaryButton}
+              onClick={onButtonSubmitClick}
+              disabled={isButtonDisabled}
+            >
+              Отправить
+            </Button>
+          )}
         </div>
       </form>
+      {responseMessage && <SnackBar message={responseMessage} type={snackBarType} />}
+      <div className={style.checkBoxBlock}>
+        {" "}
+        <Checkbox checked={requestStatus} onChangeChecked={setRequestStatus}>
+          Is the request error?
+        </Checkbox>
+      </div>
     </div>
   );
 });

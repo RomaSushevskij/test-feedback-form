@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useState } from "react";
 
-import { useInputPhoneMask } from "../../components/FeedbackForm/utils";
 import { EMPTY_STRING } from "../../constants";
-import { useValidation } from "../useValidation/useValidation";
+import { useInputPhoneMask } from "../useInputPhoneMask";
+import { useValidation } from "../useValidation";
 
 import { EventFieldValueType } from "./types";
 
@@ -29,6 +29,9 @@ export const useField = (validations: any, initialValue: string = EMPTY_STRING) 
   const handleFieldValueBlur = useCallback(() => {
     setIsTouched(true);
   }, [setIsTouched]);
+  const resetInputValue = useCallback(() => {
+    setFieldValue(EMPTY_STRING);
+  }, [setFieldValue]);
 
   return useMemo(
     () => ({
@@ -36,6 +39,7 @@ export const useField = (validations: any, initialValue: string = EMPTY_STRING) 
       handleFieldValueChange,
       isTouched,
       handleFieldValueBlur,
+      resetInputValue,
       ...valid,
       ...phoneMask,
     }),

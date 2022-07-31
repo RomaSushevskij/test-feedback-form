@@ -8,3 +8,8 @@ export type FeedbackFormDataType = {
   [FeedbackFormNames.birthDate]: string;
   [FeedbackFormNames.message]: string;
 };
+
+export type SendFeedbackParamsType = {
+  formData: FeedbackFormDataType;
+  requestStatus: boolean;
+};
