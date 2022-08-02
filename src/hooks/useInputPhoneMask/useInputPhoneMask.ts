@@ -1,6 +1,6 @@
 import { ClipboardEvent, FormEvent, KeyboardEvent } from "react";
 
-import { EMPTY_STRING } from "../../constants";
+import { EMPTY_STRING } from "../../common/constants";
 
 import {
   EIGHT_SYMBOLS,

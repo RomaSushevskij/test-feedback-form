@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
-import { EMPTY_STRING } from "../../constants";
+import { EMPTY_STRING } from "../../common/constants";
 
 import {
   INVALID_EMAIL_ADDRESS,

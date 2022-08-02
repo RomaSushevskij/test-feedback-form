@@ -69,6 +69,11 @@
   box-shadow: 0 0 5px rgba(200, 53, 53, .5);
   word-wrap: break-word;
   font-size: 12px;
+  @media screen and (max-width: 480px ) {
+    left: 0;
+    margin-top: 5px;
+    position: relative;
+  }
 
   &::before {
     content: "";
@@ -81,6 +86,10 @@
     transform-origin: 50% 50%;
     transform: rotate(45deg);
     box-shadow: 0 0 5px rgba(200, 53, 53, .5);
+    @media screen and (max-width: 480px ) {
+      top: -3px;
+      left: 5px;
+    }
 
   }
 }
@@ -97,7 +106,7 @@
 @mixin container {
   display: flex;
   flex-direction: column;
-  padding: 30px 50px;
+  padding: 20px 50px;
 }
 
 @mixin form {

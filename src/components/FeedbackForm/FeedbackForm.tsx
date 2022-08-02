@@ -1,7 +1,7 @@
 import { memo, useState, MouseEvent } from "react";
 
+import { EMPTY_STRING } from "../../common/constants";
 import paperStyle from "../../common/styles/classes.module.scss";
-import { EMPTY_STRING } from "../../constants";
 import { useAppDispatch, useAppSelector, useField } from "../../hooks";
 import {
   IS_EMPTY,
@@ -182,13 +182,13 @@ export const FeedbackForm = memo(() => {
             )}
           </div>
         </form>
-        {responseMessage && <SnackBar message={responseMessage} type={snackBarType} />}
         <div className={style.checkBoxBlock}>
           {" "}
           <Checkbox checked={requestStatus} onChangeChecked={setRequestStatus}>
             Is the request error?
           </Checkbox>
         </div>
+        {responseMessage && <SnackBar message={responseMessage} type={snackBarType} />}
       </div>
     </div>
   );

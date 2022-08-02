@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 
-import { EMPTY_STRING } from "../../constants";
+import { EMPTY_STRING } from "../../common/constants";
 import { useInputPhoneMask } from "../useInputPhoneMask";
 import { useValidation } from "../useValidation";
 

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { appApi, ResponseFeedbackFormType } from "../../../api";
-import { EMPTY_STRING } from "../../../constants";
+import { EMPTY_STRING } from "../../../common/constants";
 
 import { RequestStatusType, SendFeedbackParamsType } from "./types";
 
