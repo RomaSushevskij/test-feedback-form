@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons/faCircleCheck";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons/faCircleExclamation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,7 +16,7 @@ type ErrorBarPropsType = {
   type: SNACK_BAR_TYPES;
 };
 
-export const SnackBar = ({ message, type }: ErrorBarPropsType) => {
+export const SnackBar = memo(({ message, type }: ErrorBarPropsType) => {
   let finalClassName;
 
   if (type === SNACK_BAR_TYPES.SUCCESS) {
@@ -35,4 +37,4 @@ export const SnackBar = ({ message, type }: ErrorBarPropsType) => {
       <p>{message}</p>
     </div>
   );
-};
+});

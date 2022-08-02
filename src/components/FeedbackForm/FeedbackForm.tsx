@@ -1,4 +1,4 @@
-import { memo, useState, MouseEvent } from "react";
+import { MouseEvent, useState } from "react";
 
 import { EMPTY_STRING } from "../../common/constants";
 import paperStyle from "../../common/styles/classes.module.scss";
@@ -13,12 +13,12 @@ import {
   VALID_FULL_NAME,
 } from "../../hooks/useValidation/constatnts";
 import {
-  sendFeedbackForm,
-  FeedbackFormNames,
   FeedbackFormDataType,
+  FeedbackFormNames,
   selectMessage,
   selectResponseStatus,
   selectSendingStatus,
+  sendFeedbackForm,
 } from "../../store";
 import { Button } from "../Button";
 import { Checkbox } from "../Checkbox";
@@ -29,7 +29,7 @@ import { Textarea } from "../Textarea";
 
 import style from "./FeedbackForm.module.scss";
 
-export const FeedbackForm = memo(() => {
+export const FeedbackForm = () => {
   const dispatch = useAppDispatch();
   const sendingFormStatus = useAppSelector(selectSendingStatus);
   const responseMessage = useAppSelector(selectMessage);
@@ -192,4 +192,4 @@ export const FeedbackForm = memo(() => {
       </div>
     </div>
   );
-});
+};

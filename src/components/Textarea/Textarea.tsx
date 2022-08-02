@@ -32,7 +32,6 @@ export const Textarea = memo(
     spanClassName,
     name,
     customStyle,
-
     ...restProps
   }: SuperInputTextPropsType) => {
     const onChangeCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {

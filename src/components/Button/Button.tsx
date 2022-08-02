@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
+import React, { ButtonHTMLAttributes, DetailedHTMLProps, memo } from "react";
 
 import paperStyle from "../../common/styles/classes.module.scss";
 
@@ -13,21 +13,18 @@ type SuperButtonPropsType = DefaultButtonPropsType & {
   red?: boolean;
 };
 
-export const Button: React.FC<SuperButtonPropsType> = ({
-  red,
-  className,
-  type,
-  ...restProps
-}) => {
-  const finalClassName = `${red ? style.red : style.default} ${className}`;
+export const Button = memo(
+  ({ red, className, type, ...restProps }: SuperButtonPropsType) => {
+    const finalClassName = `${red ? style.red : style.default} ${className}`;
 
-  return (
-    <button
-      type={type === "submit" ? "submit" : "button"}
-      className={`${finalClassName} ${paperStyle.shadowPaper} ${paperStyle.relative}`}
-      data-z="paper"
-      data-hover-z="paper-1"
-      {...restProps}
-    />
-  );
-};
+    return (
+      <button
+        type={type === "submit" ? "submit" : "button"}
+        className={`${finalClassName} ${paperStyle.shadowPaper} ${paperStyle.relative}`}
+        data-z="paper"
+        data-hover-z="paper-1"
+        {...restProps}
+      />
+    );
+  },
+);
