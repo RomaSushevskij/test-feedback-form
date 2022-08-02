@@ -72,24 +72,21 @@ export const FeedbackForm = () => {
   const onButtonSubmitClick = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const formData: FeedbackFormDataType = {
-      fullName: fullName.fieldValue,
-      email: email.fieldValue,
-      phone: phone.fieldValue,
-      birthDate: phone.fieldValue,
-      message: message.fieldValue,
+      fullName: fullName.fieldValue.trim(),
+      email: email.fieldValue.trim(),
+      phone: phone.fieldValue.trim(),
+      birthDate: phone.fieldValue.trim(),
+      message: message.fieldValue.trim(),
     };
 
     const resultAction = await dispatch(sendFeedbackForm({ formData, requestStatus }));
 
-    console.log(resultAction);
-    if (!sendFeedbackForm.rejected.match(resultAction)) {
-      if (resultAction.payload?.status === "success") {
-        fullName.resetInputValue();
-        email.resetInputValue();
-        phone.resetInputValue();
-        birthDate.resetInputValue();
-        message.resetInputValue();
-      }
+    if (sendFeedbackForm.fulfilled.match(resultAction)) {
+      fullName.resetInputValue();
+      email.resetInputValue();
+      phone.resetInputValue();
+      birthDate.resetInputValue();
+      message.resetInputValue();
     }
   };
 
