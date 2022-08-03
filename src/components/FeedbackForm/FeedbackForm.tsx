@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 
 import { EMPTY_STRING } from "../../common/constants";
 import paperStyle from "../../common/styles/classes.module.scss";
@@ -69,7 +69,7 @@ export const FeedbackForm = () => {
   // testing the result of the request
   const [requestStatus, setRequestStatus] = useState<boolean>(false);
 
-  const onButtonSubmitClick = async (e: MouseEvent<HTMLButtonElement>) => {
+  const onFeedbackFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData: FeedbackFormDataType = {
       fullName: fullName.fieldValue.trim(),
@@ -96,7 +96,7 @@ export const FeedbackForm = () => {
         className={`${style.feedbackFormContainer} ${paperStyle.shadowPaper}`}
         data-z="paper"
       >
-        <form className={style.form}>
+        <form className={style.form} onSubmit={onFeedbackFormSubmit}>
           <h1>Feedback form</h1>
           <div className={style.field}>
             <label htmlFor="Имя Фамилия"> Имя Фамилия</label>
@@ -171,7 +171,6 @@ export const FeedbackForm = () => {
               <Button
                 type="submit"
                 className={style.primaryButton}
-                onClick={onButtonSubmitClick}
                 disabled={isButtonDisabled}
               >
                 Отправить
